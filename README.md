@@ -302,19 +302,6 @@ type Mutation {
   postEdit(id: Int, post: postPayload): Post
   postDelete(id: Int): Post
 }
-
-# Frontend
-# search inline fragment
-query search($q: String!){
-  search (q: "hola") {
-    ... on Post{
-      title
-    }
-    ... on Comment{
-      text
-    }
-  }
-}
 ```
 
 # Otros temas
