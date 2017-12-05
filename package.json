@@ -12,10 +12,13 @@
     "@std/esm": "^0.18.0",
     "apollo-server-express": "^1.2.0",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "graphql": "^0.11.7",
+    "graphql-subscriptions": "^0.5.5",
     "graphql-tools": "^2.11.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "subscriptions-transport-ws": "^0.9.4"
   },
   "engines": {
     "node": ">= 8.8.1",

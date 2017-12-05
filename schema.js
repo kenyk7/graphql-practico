@@ -1,6 +1,7 @@
 // Schema
 import { find, filter } from 'lodash';
 import { makeExecutableSchema } from 'graphql-tools';
+import pubsub from './pubsub';
 
 const comments = [
   { id: 1, text: 'Primer comentario', postId: 1 },
@@ -61,6 +62,19 @@ type Mutation {
   postEdit(id: Int, post: postPayload): Post
   postDelete(id: Int): Post
 }
+
+enum _ModelMutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+type PostSubscriptionPayload {
+  mutation: _ModelMutationType,
+  node: Post
+}
+type Subscription {
+  Post: PostSubscriptionPayload
+}
 `;
 
 const resolvers = {
@@ -80,6 +94,7 @@ const resolvers = {
     postAdd: (_, { post }) => {
     	const newPost = Object.assign({}, {id: 5}, post);
     	posts.push(newPost);
+      pubsub.publish('postChange', { Post: {mutation: 'CREATED', node: newPost}});
 			return newPost;
   	}
   },
@@ -93,6 +108,11 @@ const resolvers = {
     __resolveType: (obj) => {
       if (obj.text) return 'Comment'
       return 'Post'
+    }
+  },
+  Subscription: {
+    Post: {
+      subscribe: () => pubsub.asyncIterator('postChange')
     }
   }
 };
