@@ -161,48 +161,45 @@ fragment fieldsPosts on Post{
 ## String, String!, [String], [String]!, [String!]!
 
 # Código
-
 enum TYPE {
   PUBLIC
   PRIVATE
 }
 
-interface RequiredFields {
+input postPayload {
+  title: String!
+  content: String!
+  publish: Boolean!
+  type: TYPE!
+}
+
+interface Node {
   id: ID!
 }
 
-type Post implements RequiredFields{
+union SearchResult = Post | Comment
+
+type Post implements Node {
   id: ID!
   title: String!
   content: String!
   publish: Boolean!
   type: TYPE!
-  comments: [Comment]
+  comments: [Comment!]
 }
-
-type Comment implements RequiredFields{
+type Comment implements Node {
   id: ID!
   text: String!
   post: Post
 }
 
-union ResultadoBusqueda = Post | Comment
-
-input postPayload {
-  title: String!
-  content: String!
-  publish: Boolean!
-  type: TYPE
-}
-
 type Query {
   posts: [Post]
-  post(id: Int): Post
+  post(id: Int!): Post
   comments: [Comment]
-  comment(id: Int): Comment
-  search(q: String): [ResultadoBusqueda]
+  comment(id: Int!): Comment
+  search(q: Int): [SearchResult]
 }
-
 type Mutation {
   postAdd(post: postPayload): Post
   postEdit(id: Int, post: postPayload): Post
@@ -221,5 +218,4 @@ query search($q: String!){
     }
   }
 }
-
 ```
