@@ -1,6 +1,8 @@
 # Graphql-práctico
 
-# Front:
+
+
+## Front:
 
 ## Simple query
 ```gql
@@ -41,6 +43,21 @@ fragment fieldsPosts on Post{
 query allPosts {
   allPosts{
     ...fieldsPosts
+  }
+}
+
+# multiple query only request
+query allData {
+  allPosts{
+    ...fieldsPosts
+  },
+  allComments{
+    id
+    text
+  },
+  allUsers{
+    id
+    email
   }
 }
 
@@ -148,6 +165,86 @@ fragment fieldsPosts on Post{
 ```
 
 # Back:
+
+## Run this project
+First check the package.json to verify the engines support
+
+```sh
+> yarn || npm install
+> yarn start || npm start
+```
+
+Open in your browser: http://localhost:8080/graphiql and test with:
+
+Test online demo: https://launchpad.graphql.com/r9l0wlqk5n
+
+```gql
+# Welcome to GraphiQL
+fragment fieldPost on Post {
+  id
+  title
+  content
+  publish
+  type
+  comments{
+    id
+  }
+}
+
+query allPosts{
+  posts{
+    ...fieldPost
+  }
+}
+
+query getPost2 {
+  post2: post (id: 2) {
+    ...fieldPost
+  }
+}
+
+query allComments{
+  comments{
+    id
+    text
+    post{
+      id
+      title
+    }
+  }
+}
+
+mutation addPost {
+  postAdd (
+    post: {
+      title: "New post test",
+      content: "",
+      publish: false,
+      type: PUBLIC
+    }
+  ) {
+    id
+    title
+  }
+}
+
+# inline fragment
+query search {
+  search (q: 1) {
+    __typename
+    ... on Post{
+      title
+    }
+    ... on Comment{
+      text
+    }
+  }
+}
+
+```
+
+### Explicación teórica
+
 ```gql
 # Schema: conjunto de types
 ## Types
@@ -219,3 +316,7 @@ query search($q: String!){
   }
 }
 ```
+
+# Otros temas
+
+Authorization, Pagination, Caching

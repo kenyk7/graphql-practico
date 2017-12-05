@@ -1,0 +1,24 @@
+{
+  "name": "graphql-practico",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kenyk7/graphql-practico.git",
+  "author": "Kenyk7 <kenykalin@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@std/esm": "^0.18.0",
+    "apollo-server-express": "^1.2.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "graphql": "^0.11.7",
+    "graphql-tools": "^2.11.0",
+    "lodash": "^4.17.4"
+  },
+  "engines": {
+    "node": ">= 8.8.1",
+    "npm": ">= 5.4.2"
+  }
+}
