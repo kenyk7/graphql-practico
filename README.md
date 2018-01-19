@@ -177,6 +177,7 @@ First check the package.json to verify the engines support
 Open in your browser: http://localhost:8080/graphiql and test with:
 
 Test online demo: https://launchpad.graphql.com/r9l0wlqk5n
+Or In Zeit now demo: https://k7-graphql-practical.now.sh/ide
 
 ```gql
 # Welcome to GraphiQL
