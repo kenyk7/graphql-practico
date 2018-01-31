@@ -1,10 +1,10 @@
 {
-	"name": "k7-graphql-practical",
-	"alias": "k7-graphql-practical.now.sh",
-	"type": "npm",
-	"env": {
-		"PORT": 8080,
-		"HOST": "localhost",
-		"WS_API": "wss://k7-graphql-practical.now.sh"
-	}
+  "name": "k7-graphql-practical",
+  "alias": "k7-graphql-practical.now.sh",
+  "type": "npm",
+  "env": {
+    "PORT": 8080,
+    "HOST": "localhost",
+    "WS_API": "wss://k7-graphql-practical.now.sh"
+  }
 }

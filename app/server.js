@@ -12,11 +12,11 @@ const app = express()
 app.use(cors())
 
 app.use(
-	'/ide',
-	graphiqlExpress({
-		endpointURL: '/graphql',
-		subscriptionsEndpoint: `${config.SUBSCRIPTIONS_URL}/subscriptions`
-	})
+  '/ide',
+  graphiqlExpress({
+    endpointURL: '/graphql',
+    subscriptionsEndpoint: `${config.SUBSCRIPTIONS_URL}/subscriptions`
+  })
 )
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema }))

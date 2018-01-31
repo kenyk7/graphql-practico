@@ -94,27 +94,27 @@ const resolvers = {
   },
   Mutation: {
     createPost: (_, { post }) => {
-    	const newId = posts[posts.length - 1].id + 1
-    	const newPost = Object.assign({}, {id: newId}, post)
-    	posts.push(newPost)
+      const newId = posts[posts.length - 1].id + 1
+      const newPost = Object.assign({}, {id: newId}, post)
+      posts.push(newPost)
       pubsub.publish('postChange', { Post: {mutation: 'CREATED', node: newPost}})
-			return newPost
-  	},
-  	updatePost: (_, { id, post }) => {
-  		const index = posts.findIndex((item) => item.id === id)
-  		let indexPost = posts[index]
-  		const newPost = Object.assign({}, indexPost, post)
-  		indexPost = newPost
-  		pubsub.publish('postChange', { Post: {mutation: 'UPDATED', node: newPost, previousValues: indexPost}})
-			return newPost
-  	},
-  	deletePost: (_, { id }) => {
-  		const index = posts.findIndex((item) => item.id === id)
-  		const indexPost = posts[index]
-  		posts.splice(index, 1)
-  		pubsub.publish('postChange', { Post: {mutation: 'DELETED', node: null, previousValues: indexPost}})
-			return indexPost
-  	}
+      return newPost
+    },
+    updatePost: (_, { id, post }) => {
+      const index = posts.findIndex((item) => item.id === id)
+      let indexPost = posts[index]
+      const newPost = Object.assign({}, indexPost, post)
+      indexPost = newPost
+      pubsub.publish('postChange', { Post: {mutation: 'UPDATED', node: newPost, previousValues: indexPost}})
+      return newPost
+    },
+    deletePost: (_, { id }) => {
+      const index = posts.findIndex((item) => item.id === id)
+      const indexPost = posts[index]
+      posts.splice(index, 1)
+      pubsub.publish('postChange', { Post: {mutation: 'DELETED', node: null, previousValues: indexPost}})
+      return indexPost
+    }
   },
   Comment: {
     post: (comment) => find(posts, { id: comment.postId })
